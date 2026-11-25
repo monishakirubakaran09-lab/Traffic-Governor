@@ -1,0 +1,48 @@
+/* Single animated, accessible landing-page entry button. */
+.tg-enter-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 60px;
+  padding: 17px 29px;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #1766f5, #1673ff, #0f9ade);
+  box-shadow: 0 0 0 1px rgba(119, 207, 255, 0.38), 0 9px 34px rgba(30, 115, 255, 0.34);
+  animation: tg-entry-breathe 2.8s ease-in-out infinite;
+}
+.tg-enter-button::before {
+  content: "";
+  position: absolute;
+  top: -120%;
+  left: -55%;
+  height: 340%;
+  width: 34%;
+  transform: rotate(25deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+  transition: left 0.55s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.tg-enter-button:hover::before { left: 135%; }
+.tg-enter-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(119, 207, 255, 0.65), 0 14px 45px rgba(30, 115, 255, 0.57);
+}
+.tg-enter-button svg { transition: transform 0.22s ease; }
+.tg-enter-button:hover svg { transform: translateX(5px); }
+.tg-enter-button:focus-visible { outline: 3px solid #9ce3ff; outline-offset: 4px; }
+.tg-landing-status { display: inline-flex; align-items: center; gap: 10px; color: #9cdbf9; letter-spacing: 0.13em; font-size: 11px; font-weight: 750; }
+.tg-preview-hint { margin-top: 20px; color: #64748b; font-size: 13px; }
+@keyframes tg-entry-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(119, 207, 255, 0.38), 0 9px 34px rgba(30, 115, 255, 0.34); }
+  50% { box-shadow: 0 0 0 1px rgba(119, 207, 255, 0.55), 0 9px 43px rgba(40, 155, 255, 0.55); }
+}
+@media (max-width: 700px) {
+  .tg-enter-button { min-height: 54px; padding: 14px 20px; font-size: 15px; }
+  .tg-landing-status { font-size: 10px; letter-spacing: 0.07em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tg-enter-button, .tg-enter-button::before, .tg-enter-button svg { animation: none !important; transition: none !important; }
+}

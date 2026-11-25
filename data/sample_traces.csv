@@ -1,0 +1,6 @@
+timestamp,endpoint,statusCode,latencyMs,circuitState
+2026-11-22 10:00:00,/api/data,200,35,CLOSED
+2026-11-22 10:00:01,/api/data,200,40,CLOSED
+2026-11-22 10:00:02,/api/data,503,120,OPEN
+2026-11-22 10:00:03,/api/data,503,110,OPEN
+2026-11-22 10:00:04,/api/data,200,42,CLOSED

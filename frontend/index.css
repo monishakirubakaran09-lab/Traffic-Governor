@@ -1,0 +1,1442 @@
+/* TrafficGovernor — HTML/CSS demo.
+   Mobile-first styles. Bootstrap's optional grid stylesheet is loaded by index.html.
+   This file also supplies the Help grid so the interface remains usable offline. */
+
+/* ---------- Theme variables ---------- */
+
+:root {
+  --blue: #1d4ed8;
+  --blue-dark: #104d80;
+  --ink: #1f2937;
+  --muted: #596575;
+  --line: #dce3eb;
+  --surface: #fff;
+  --page: #f8fafc;
+  --green: #166534;
+  --red: #b42318;
+  --amber: #92400e;
+}
+
+/* ---------- Base styles and accessibility ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 14px/1.6 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+summary {
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--blue);
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
+button:disabled {
+  background: #e8edf5;
+  color: #596575;
+  border: 1px solid #cbd5e1;
+}
+
+input:disabled,
+select:disabled {
+  color: #596575;
+  background: #f1f5f9;
+  opacity: 1;
+}
+
+p {
+  margin: 0 0 14px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+}
+
+small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+code {
+  color: #334155;
+  font-size: .9em;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Text utilities ---------- */
+
+.muted,
+.small-muted {
+  color: var(--muted);
+}
+
+.positive {
+  color: var(--green) !important;
+}
+
+.danger-text,
+.field-error {
+  color: var(--red) !important;
+}
+
+.warning-text {
+  color: var(--amber) !important;
+}
+
+.eyebrow {
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 750;
+  letter-spacing: .06em;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  z-index: 10;
+  background: white;
+  padding: 14px;
+  border: 2px solid var(--blue);
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ---------- Shared components ---------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -.6px;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #101a2b;
+  color: white;
+  font-size: 12px;
+}
+
+.blue-word {
+  color: #84b9ff;
+}
+
+.card {
+  min-width: 0;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  box-shadow: 0 2px 8px #14233706;
+}
+
+.card h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.card h4 {
+  margin: 20px 0 10px;
+}
+
+.card-heading,
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card-heading > *,
+.page-heading > * {
+  min-width: 0;
+}
+
+.card-heading p,
+.page-heading p {
+  color: var(--muted);
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+
+.primary-button,
+.outline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 650;
+  text-align: center;
+}
+
+.primary-button {
+  background: var(--blue);
+  color: white;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: #1e40af;
+}
+
+.outline-button {
+  background: white;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+.outline-button:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.small-button {
+  font-size: 13px;
+}
+
+.full-button {
+  width: 100%;
+}
+
+.text-link {
+  display: inline-block;
+  padding: 10px 0;
+  color: var(--blue);
+  font-weight: 650;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.status-pill,
+.live-pill,
+.healthy-pill,
+.denied-pill,
+.warning-pill {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 650;
+  background: #e8f7f0;
+  color: var(--green);
+}
+
+.denied-pill {
+  color: var(--red);
+  background: #fff0f0;
+}
+
+.warning-pill {
+  color: var(--amber);
+  background: #fff6df;
+}
+
+.live-pill {
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+label {
+  display: block;
+  margin: 16px 0 7px;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+input,
+select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid #b8c3d1;
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  padding: 11px 12px;
+}
+
+input::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+fieldset {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 24px 0 0;
+  padding: 12px 0;
+  min-width: 0;
+}
+
+legend {
+  padding-right: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+summary {
+  padding: 12px 0;
+  min-height: 44px;
+  font-weight: 650;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 20px 0;
+}
+
+.notice {
+  border: 1px solid #b9ccef;
+  background: #eef4ff;
+  color: #23477e;
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.float-right {
+  float: right;
+}
+
+/* ---------- Login screen ---------- */
+
+.login-screen {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background: white;
+}
+
+.login-brand {
+  padding: 36px 8%;
+  background: var(--blue-dark);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.login-brand .brand {
+  font-size: clamp(20px, 3vw, 25px);
+}
+
+.login-brand .brand-mark {
+  background: #ffffff22;
+  border: 1px solid #ffffff40;
+}
+
+.tagline {
+  margin-top: 14px;
+  color: #c2d5e6;
+  font-size: 13px;
+}
+
+.login-brand h1 {
+  margin: 40px 0 18px;
+  font-size: clamp(32px, 3vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -1px;
+}
+
+.brand-copy {
+  color: #d2e0ee;
+}
+
+.snapshot-label {
+  margin-top: 30px;
+  color: #c2d5e6;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.snapshot-card {
+  width: min(100%, 430px);
+  margin-top: 12px;
+  padding: 22px;
+  border-radius: 17px;
+  background: #071426;
+}
+
+.snapshot-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.snapshot-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.snapshot-stats strong {
+  font-size: 27px;
+}
+
+.snapshot-stats span {
+  color: #b9c8db;
+  font-size: 12px;
+}
+
+.mini-bars {
+  display: flex;
+  align-items: flex-end;
+  height: 60px;
+  gap: 5px;
+  margin-top: 18px;
+  border-bottom: 1px solid #263b56;
+}
+
+.mini-bars i {
+  flex: 1;
+  height: 45%;
+  background: #3478ed;
+  border-radius: 4px 4px 0 0;
+}
+
+.mini-bars i:nth-child(3n) {
+  height: 75%;
+}
+
+.mini-bars i:nth-child(4n) {
+  height: 95%;
+}
+
+.mini-bars i:nth-child(5n) {
+  height: 60%;
+}
+
+.brand-footer {
+  margin-top: 35px;
+  padding-top: 25px;
+  color: #c2d5e6;
+  font-size: 12px;
+}
+
+.login-form-side {
+  display: grid;
+  place-items: center;
+  padding: 40px 8%;
+}
+
+.login-form {
+  width: min(100%, 430px);
+}
+
+.login-form h2 {
+  margin: 12px 0 10px;
+  font-size: 30px;
+  letter-spacing: -.8px;
+}
+
+.login-preview .primary-button {
+  margin-top: 24px;
+}
+
+.demo-note {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.login-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  margin-top: 50px;
+  padding-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ---------- Navigation and page layout ---------- */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 1px solid var(--line);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  background: white;
+  border-right: 1px solid var(--line);
+}
+
+.sidebar-brand {
+  gap: 8px;
+  font-size: 16px;
+}
+
+.sidebar-brand small,
+.sidebar-bottom small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+
+.nav-heading {
+  margin: 28px 10px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.main-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 15px;
+}
+
+.main-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 11px 10px;
+  border-radius: 7px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.main-nav a:hover {
+  color: var(--blue);
+  background: #edf3ff;
+}
+
+/* :has() follows the selected anchor; ordinary anchor navigation remains usable without it. */
+
+body:has(#dashboard:target) a[href="#dashboard"],
+body:has(#policies:target) .main-nav a[href="#policies"],
+body:has(#simulator:target) .main-nav a[href="#simulator"],
+body:has(#metrics:target) .main-nav a[href="#metrics"],
+body:has(#report:target) .main-nav a[href="#report"],
+body:has(#help:target) .main-nav a[href="#help"] {
+  background: #edf3ff;
+  color: var(--blue);
+}
+
+.sidebar-bottom {
+  display: none;
+}
+
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 50%;
+  background: #18243a;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.main-content {
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 15px 18px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+}
+
+.breadcrumbs {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+}
+
+.environment {
+  padding: 7px 12px;
+  border-radius: 7px;
+  background: #eef2f7;
+  color: #253044;
+  font-weight: 650;
+}
+
+.role-control label {
+  margin: 0 0 3px;
+}
+
+.role-control select {
+  font-size: 12px;
+}
+
+.page-section {
+  padding: 24px 12px;
+  scroll-margin-top: 14px;
+}
+
+.page-section + .page-section {
+  border-top: 1px solid var(--line);
+}
+
+.page-heading {
+  margin-bottom: 22px;
+}
+
+.page-heading h2 {
+  margin: 0;
+  font-size: 25px;
+  letter-spacing: -.7px;
+}
+
+/* ---------- Dashboard cards and policy overview ---------- */
+
+.kpi-grid,
+.report-kpis {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.kpi-label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.kpi strong {
+  display: block;
+  margin: 12px 0 4px;
+  font-size: 28px;
+  letter-spacing: -.6px;
+}
+
+.kpi strong small {
+  display: inline;
+  font-size: 14px;
+}
+
+.kpi p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.kpi span {
+  font-size: 12px;
+}
+
+.dashboard-grid,
+.policy-layout,
+.sim-layout,
+.metrics-grid,
+.report-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.stack {
+  display: grid;
+  gap: 18px;
+}
+
+.policy-status h2 {
+  margin: 12px 0 6px;
+  font-size: 23px;
+}
+
+.policy-status .eyebrow {
+  margin-top: 20px;
+}
+
+.policy-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fafbfd;
+}
+
+.policy-facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.policy-facts span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.policy-facts strong {
+  font-size: 13px;
+}
+
+.fill-label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.progress {
+  height: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e5eaf0;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  border-radius: inherit;
+}
+
+.policy-status .text-link {
+  display: block;
+  margin-top: 16px;
+  text-align: right;
+}
+
+/* ---------- Tables ---------- */
+
+.table-card {
+  margin-bottom: 20px;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+caption {
+  text-align: left;
+  color: var(--muted);
+  padding: 0 0 12px;
+  font-size: 12px;
+}
+
+th {
+  padding: 12px 10px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+}
+
+td {
+  padding: 13px 10px;
+  border-bottom: 1px solid var(--line);
+  color: #475569;
+}
+
+.table-foot,
+.chart-foot {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ---------- Policy forms and preview ---------- */
+
+.two-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 16px;
+}
+
+.preview-card .big-number {
+  display: block;
+  font-size: 48px;
+  letter-spacing: -2px;
+}
+
+meter {
+  display: block;
+  width: 100%;
+  height: 18px;
+  accent-color: var(--blue);
+}
+
+.save-tip {
+  display: flex;
+  flex-direction: column;
+}
+
+.save-tip .text-link {
+  margin-top: auto;
+}
+
+.form-card .full-button {
+  margin-top: 24px;
+}
+
+/* ---------- Simulator results and decision log ---------- */
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.result-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-stats strong {
+  font-size: 28px;
+}
+
+.result-stats span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.decision-log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 390px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8fafc;
+  font: 12px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.decision-log li {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.decision-log li:last-child {
+  border-bottom: 0;
+}
+
+/* ---------- Metrics and filters ---------- */
+
+.filter-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.filter-bar label {
+  margin-top: 0;
+}
+
+.period-select {
+  width: 170px;
+}
+
+.distribution-card > p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 18px 0 8px;
+}
+
+.distribution-line {
+  height: 15px;
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e8edf2;
+}
+
+.distribution-line span {
+  display: block;
+  width: 95.6%;
+  height: 100%;
+  background: var(--green);
+}
+
+.denied-line {
+  height: 12px;
+  margin-top: 8px;
+}
+
+.denied-line span {
+  width: 4.4%;
+  background: var(--red);
+}
+
+.insight-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.healthy-pill {
+  align-self: flex-start;
+  margin: 14px 0;
+}
+
+.insight-card .full-button {
+  margin-top: auto;
+}
+
+/* ---------- Analysis report ---------- */
+
+.report-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.finding {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.finding:last-child {
+  border: 0;
+}
+
+.finding > span,
+.step-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 8px;
+  background: #edf3ff;
+  color: var(--blue);
+  font-size: 12px;
+}
+
+.finding p {
+  margin: 5px 0 0;
+  color: var(--muted);
+}
+
+.next-steps p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.warning-icon {
+  color: var(--amber);
+  background: #fff6df;
+}
+
+.analysis-context {
+  margin-bottom: 20px;
+}
+
+/* ---------- Static charts ---------- */
+
+.sample-chart {
+  margin: 20px 0 8px;
+  overflow-x: auto;
+}
+
+.sample-chart svg {
+  display: block;
+  width: 100%;
+  min-width: 360px;
+  height: auto;
+}
+
+.sample-chart text {
+  font: 14px Arial, sans-serif;
+  fill: #475569;
+}
+
+.chart-grid {
+  stroke: #e2e8f0;
+  stroke-width: 1;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.chart-point {
+  fill: var(--blue);
+}
+
+.trip-marker {
+  stroke: var(--red);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.status-chart {
+  margin: 24px 0;
+}
+
+.status-chart > p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.status-row {
+  display: grid;
+  gap: 7px;
+  margin: 20px 0;
+}
+
+.status-track {
+  height: 22px;
+  border-radius: 5px;
+  background: #edf1f6;
+  overflow: hidden;
+}
+
+.status-track span {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+}
+
+.status-track .status-error {
+  background: var(--red);
+}
+
+/* ---------- Help and footer ---------- */
+
+.help-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  margin: 0 0 20px;
+}
+
+.help-grid > div {
+  width: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.help-grid .card {
+  height: 100%;
+}
+
+.help-card h3:not(:first-child) {
+  margin-top: 28px;
+}
+
+.help-card li {
+  margin-bottom: 8px;
+}
+
+.app-footer {
+  padding: 20px 24px 30px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ---------- Responsive layouts ---------- */
+
+@media (min-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .report-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .two-fields,
+  .filter-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    padding: 22px;
+  }
+
+  .page-section {
+    padding: 28px 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sim-layout {
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  }
+
+  .metrics-grid,
+  .report-grid,
+  .help-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .main-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Laptop and desktop layouts ---------- */
+
+@media (min-width: 1024px) {
+  .login-screen {
+    min-height: 100vh;
+    grid-template-columns: 44% 56%;
+  }
+
+  .login-brand {
+    min-height: 100vh;
+    padding: 48px 9%;
+  }
+
+  .snapshot-label {
+    margin-top: 70px;
+  }
+
+  .brand-footer {
+    margin-top: auto;
+  }
+
+  .login-form-side {
+    padding: 45px;
+  }
+
+  .login-bottom {
+    margin-top: 90px;
+  }
+
+  .app-shell {
+    grid-template-columns: 225px minmax(0, 1fr);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .main-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar-bottom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    padding: 14px 7px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-size: 12px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(250px, 1fr);
+  }
+
+  .policy-layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+  }
+
+  .page-section {
+    padding: 28px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .filter-bar {
+    grid-template-columns: 1.2fr 1fr 1fr auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* ---------- Light and Dark Theme ---------- */
+
+/* Default theme is light */
+:root {
+    color-scheme: light;
+}
+
+/* Dark theme colors */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --blue: #60a5fa;
+    --blue-dark: #93c5fd;
+    --ink: #f1f5f9;
+    --muted: #a6b4c7;
+    --line: #334155;
+    --surface: #1e293b;
+    --page: #0f172a;
+
+    --green: #4ade80;
+    --red: #f87171;
+    --amber: #fbbf24;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    width: auto;
+    min-height: 38px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    border-color: var(--blue);
+}
+
+/* Apply dark backgrounds to existing layout elements */
+:root[data-theme="dark"] .topbar,
+:root[data-theme="dark"] .sidebar,
+:root[data-theme="dark"] .login-screen,
+:root[data-theme="dark"] .login-form-side,
+:root[data-theme="dark"] .card {
+    background: var(--surface);
+    color: var(--ink);
+}
+
+/* Darker nested panels */
+:root[data-theme="dark"] .policy-facts,
+:root[data-theme="dark"] .environment,
+:root[data-theme="dark"] .decision-log,
+:root[data-theme="dark"] .status-track {
+    background: #111c2e;
+    color: var(--ink);
+}
+
+/* Form elements */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select {
+    background: #111c2e;
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+:root[data-theme="dark"] input::placeholder {
+    color: var(--muted);
+}
+
+/* Tables and navigation */
+:root[data-theme="dark"] th,
+:root[data-theme="dark"] .main-nav a:hover {
+    background: #27364b;
+    color: var(--ink);
+}
+
+:root[data-theme="dark"] td,
+:root[data-theme="dark"] label,
+:root[data-theme="dark"] code,
+:root[data-theme="dark"] .main-nav a {
+    color: var(--muted);
+}
+
+/* Selected sidebar item */
+:root[data-theme="dark"] .main-nav a[aria-current="page"],
+:root[data-theme="dark"] .main-nav a:hover {
+    background: #243b60;
+    color: #bfdbfe;
+}
+
+/* Charts */
+:root[data-theme="dark"] .sample-chart text {
+    fill: #cbd5e1;
+}
+
+:root[data-theme="dark"] .chart-grid {
+    stroke: #475569;
+}
+
+/* Small secondary backgrounds */
+:root[data-theme="dark"] .progress,
+:root[data-theme="dark"] .distribution-line {
+    background: #334155;
+}
+
+/* Match the P95 value to the other KPI numbers */
+.kpi .latency-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+
+
+/* Make both live latency values larger */
+#dashboard-p95-latency,
+#metrics-avg-latency {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+/* Match Analysis Report latency with other summary numbers */
+#report-latency {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+/* Match Analysis Report latency with other summary numbers */
+#report-latency {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Complete decision history: keep navigation available for long sessions. */
+.history-count { margin: 12px 0 8px; }
+.load-older-history { margin-bottom: 8px; }
+.load-older-history[hidden] { display: none; }
+
+
+/* Per-client reset button */
+.reset-client-metrics {
+    padding: 7px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Hide empty status messages */
+#client-reset-status:empty {
+    display: none;
+}
+
+/* US-06: Hide restricted policy controls */
+#policy-form[hidden],
+#policy-role-message[hidden] {
+    display: none !important;
+}
+
+#policy-role-message {
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border: 1px solid #d97777;
+    border-radius: 8px;
+}
